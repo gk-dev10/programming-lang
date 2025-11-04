@@ -7,6 +7,7 @@ import { Parser } from './interpreter/parser.js';
 import { Evaluator, Environment } from './interpreter/evaluator.js';
 
 // UI Components
+import LandingPage from './components/LandingPage';
 import Header from './components/Header';
 import MainContent from './components/MainContent';
 import HelpModal from './components/HelpModal';
@@ -19,6 +20,7 @@ import { DEFAULT_CODE_EXAMPLE } from './constants.js';
  * The main App component that holds all state.
  */
 function App() {
+    const [showLandingPage, setShowLandingPage] = useState(true);
     // --- React State ---
     const [code, setCode] = useState(DEFAULT_CODE_EXAMPLE);
     const [output, setOutput] = useState("Click 'Run Code' to see the output...");
@@ -113,6 +115,14 @@ function App() {
     const clearOutput = () => {
         setOutput("Console cleared. Click 'Run Code' to see new output...");
     };
+
+    const handleEnterInterpreter = () => {
+        setShowLandingPage(false);
+    };
+
+    if (showLandingPage) {
+        return <LandingPage onEnter={handleEnterInterpreter} />;
+    }
 
     return (
         <div className="app-container">
